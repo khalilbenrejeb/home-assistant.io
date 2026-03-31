@@ -15,7 +15,7 @@ You can access the site at the following URLs, depending on the target branch:
 - **Beta** (`rc` branch): https://rc.home-assistant.io
 - **Development** (`next` branch): https://next.home-assistant.io
 
-Additionally, Netlify provides a preview deployment for every pull request, linked in the first PR comment.
+Additionally, Netlify provides a preview deployment for every pull request, linked in the first PR (Pull Request) comment.
 
 ## Setup
 
