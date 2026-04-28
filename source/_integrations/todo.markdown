@@ -52,6 +52,31 @@ item to a pre-configured to-do list.
 
 {% my blueprint_import badge blueprint_url="https://community.home-assistant.io/t/add-to-do-item/699193" %}
 
+## Automation
+
+The to-do list entity provides triggers to help you automate your tasks.
+
+### Triggers
+You can use these triggers to start an automation when a list item is modified.
+
+- **Item added**: Fires when a new item is created in a to-do list.
+- **Item completed**: Fires when an item is marked as completed.
+- **Item removed**: Fires when an item is deleted from the list.
+
+#### Example
+This example sends a notification whenever a new item is added to your shopping list:
+
+```yaml
+automation:
+  trigger:
+    - platform: todo
+      event_type: item_added
+      entity_id: todo.shopping_list
+  action:
+    - action: notify.mobile_app
+      data:
+        message: "A new item was added to the shopping list!"
+
 ## Actions
 
 Some to-do list integrations allow Home Assistant to manage the to-do items in the list. The
