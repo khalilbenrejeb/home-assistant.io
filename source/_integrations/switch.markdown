@@ -44,14 +44,20 @@ In addition, the entity can have the following states:
 - **outlet**: A switch for a power outlet.
 - **switch**: A generic switch.
 
-## Using the actions
+## Automation
 
-In the frontend open **Settings**. Select **Developer tools**, click **Actions**. From the **Action** dropdown menu choose `switch.turn_on` or `switch.turn_off` from the list of available actions. In the Entity dropdown menu choose or enter the entity ID you want to work with. This will enter something like the sample below into the **data** field. Now select **Perform action**.
+The switch entity provides specific triggers and conditions to help you automate your devices.
 
-```json
-{"entity_id":"switch.livingroom_pin2"}
-```
+### Triggers
+You can use these triggers to start an automation based on the state of the switch.
 
-| Data attribute | Optional | Description                                                                                                         |
-| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| `entity_id`            | no       | String or list of strings that point at `entity_id`s of switches. To target all switches, set `entity_id` to `all`. |
+- **Turned on**: Fires when the switch is toggled to the 'on' state.
+- **Turned off**: Fires when the switch is toggled to the 'off' state.
+
+```yaml
+automation:
+  trigger:
+    - platform: device
+      domain: switch
+      entity_id: switch.living_room_light
+      type: turned_on
