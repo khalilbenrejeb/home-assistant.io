@@ -113,3 +113,15 @@ These are the generator models that have been tested:
 This integration follows the standard integration removal process; no extra steps are required.
 
 {% include integrations/remove_device_service.md %}
+
+
+## Finding your device
+
+After completing the configuration, your generator will not appear as a standalone "device" on your dashboard immediately. To find your generator data:
+
+1. Navigate to **Settings** > **Devices & Services**.
+2. Locate the **Rehlko** integration.
+3. Click on the **1 entity** (or more) link on the integration card.
+4. This will show you the sensors (e.g., battery voltage, status) provided by your generator. 
+
+You can now add these entities to your **Dashboard** using a **Sensor card** or **Gauge card**.
