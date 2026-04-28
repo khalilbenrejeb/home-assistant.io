@@ -142,16 +142,16 @@ sensor:
     baudrate: 9600
 
 template:
-  sensor:
-    - name: Temperature
-      unit_of_measurement: "°C"
-      state: "{{ states('sensor.serial_sensor').split(',')[1] | float(default=0) }}"
-    - name: Humidity
-      unit_of_measurement: "%"
-      state: "{{ states('sensor.serial_sensor').split(',')[2] | float(default=0) }}"
-    - name: Barometer
-      unit_of_measurement: "mbar"
-      state: "{{ states('sensor.serial_sensor').split(',')[4] | float(default=0) }}"
+  - sensor:
+      - name: Temperature
+        unit_of_measurement: "°C"
+        state: "{{ states('sensor.serial_sensor').split(',')[1] | float(default=0) }}"
+      - name: Humidity
+        unit_of_measurement: "%"
+        state: "{{ states('sensor.serial_sensor').split(',')[2] | float(default=0) }}"
+      - name: Barometer
+        unit_of_measurement: "mbar"
+        state: "{{ states('sensor.serial_sensor').split(',')[4] | float(default=0) }}"
 ```
 
 {% endraw %}
