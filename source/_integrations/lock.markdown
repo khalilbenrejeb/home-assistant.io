@@ -1,101 +1,53 @@
 ---
 title: Lock
-description: Instructions on how to setup your locks with Home Assistant.
+description: Instructions on how to set up your locks with Home Assistant.
 ha_category:
   - Lock
-ha_release: 0.9
+ha_release: 0.7
 ha_quality_scale: internal
 ha_domain: lock
 ha_codeowners:
   - '@home-assistant/core'
 ha_integration_type: entity
+related:
+  - docs: /docs/configuration/customizing-devices/
+    title: Customizing devices
+  - docs: /dashboards/
+    title: Dashboard
 ---
 
-Keeps track which locks are in your environment, their state and allows you to control them.
-
-- Maintains a state per lock and a combined state `all_locks`.
-- Registers actions `lock.lock`, `lock.unlock`, and `lock.open` (unlatch) to control locks.
+The **Lock** {% term integration %} manages the state of the lock entities and allows you to control them.
 
 {% include integrations/building_block_integration.md %}
 
 ## The state of a lock entity
 
-A lock entity can have the following states:
+The state of a lock {% term entity %} can be one of the following:
 
-- **Jammed**: The lock is currently jammed.
-- **Open**: Indication of whether the lock is currently open.
-- **Opening**: Indication of whether the lock is currently opening.
-- **Locked**: The lock is currently locked.
-- **Locking**: The lock is in the process of being locked.
-- **Unlocked**: The lock is currently unlocked.
-- **Unlocking**: The lock is in the process of being unlocked.
+- **Locked**: The lock is secured.
+- **Unlocked**: The lock is open.
+- **Locking**: The lock is in the process of securing.
+- **Unlocking**: The lock is in the process of opening.
+- **Jammed**: The lock mechanism is stuck.
 - **Unavailable**: The entity is currently unavailable.
 - **Unknown**: The state is not yet known.
 
-## Actions
+## Automation
 
-A lock integration provides the following actions:
+The lock entity provides specific triggers and conditions to help you automate your security.
 
-### Action: Lock
+### Triggers
+You can use these triggers to start an automation based on the lock's activity.
 
-The `lock.lock` action locks your door.
-
-| Data attribute | Optional | Description                  |
-| -------------- | -------- | ---------------------------- |
-| `entity_id`    | no       | Entity of the relevant lock. |
-| `code`         | yes      | Code used to lock the lock.  |
-
-#### Example
+- **Locked**: Fires when the lock is secured.
+- **Unlocked**: Fires when the lock is opened.
+- **Opened**: Fires when the door is physically opened (if supported).
+- **Jammed**: Fires when the lock mechanism fails to engage.
 
 ```yaml
-actions:
-  - action: lock.lock
-    target:
-      entity_id: lock.my_place
-    data:
-      code: "1234"
-```
-
-### Action: Unlock
-
-The `lock.unlock` action unlocks your door.
-
-| Data attribute | Optional | Description                   |
-| -------------- | -------- | ----------------------------- |
-| `entity_id`    | no       | Entity of the relevant lock.  |
-| `code`         | yes      | Code used to unlock the lock. |
-
-#### Example
-
-```yaml
-actions:
-  - action: lock.unlock
-    target:
-      entity_id: lock.my_place
-    data:
-      code: "1234"
-```
-
-### Action: Open
-
-The `lock.open` action opens (unlatches) a lock.
-
-| Data attribute | Optional | Description                   |
-| -------------- | -------- | ----------------------------- |
-| `entity_id`    | no       | Entity of the relevant lock.  |
-| `code`         | yes      | Code used to open the lock. |
-
-#### Example
-
-```yaml
-actions:
-  - action: lock.open
-    target:
-      entity_id: lock.my_place
-    data:
-      code: "1234"
-```
-
-## Use the actions
-
-Go to {% my developer_services title="**Settings** > **Developer tools** > **Actions**" %}, and choose `lock.lock`, `lock.unlock`, or `lock.open` from the list of available actions. Fill in the required data and select **Perform action**.
+automation:
+  trigger:
+    - platform: device
+      domain: lock
+      entity_id: lock.front_door
+      type: jammed
